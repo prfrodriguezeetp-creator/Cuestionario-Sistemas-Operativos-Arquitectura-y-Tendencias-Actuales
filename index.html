@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Cuestionario: Sistemas Operativos 2026 (Opción Múltiple)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            padding: 2rem 1rem;
+            color: #eef2ff;
+        }
+
+        .quiz-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(20, 28, 45, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.3);
+            overflow: hidden;
+            padding: 1.8rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #2a3b66;
+            padding-bottom: 1rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #b0d4ff, #4f9eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .sub {
+            color: #99a7c9;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        .instructions {
+            background: #0f172ed9;
+            padding: 1rem 1.5rem;
+            border-radius: 1.2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #3b82f6;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 1.8rem 0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: #1f2a46;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            margin-bottom: 1rem;
+            color: #c6ddff;
+        }
+
+        .question-card {
+            background: #11182dd9;
+            border-radius: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            transition: all 0.2s ease;
+            border: 1px solid #2a3860;
+            box-shadow: 0 6px 12px -8px rgba(0,0,0,0.4);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: #eef3ff;
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .q-num {
+            background: #2a3e6b;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            margin-left: 0.5rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem 0.8rem;
+            border-radius: 1rem;
+            transition: background 0.15s;
+            background: #0b1125;
+            border: 1px solid #2a345b;
+        }
+
+        .option:hover {
+            background: #1a2442;
+            border-color: #5a7dcf;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid #6c80b0;
+            border-radius: 50%;
+            margin-top: 0.1rem;
+            cursor: pointer;
+            background: #0f1428;
+            transition: 0.1s;
+            flex-shrink: 0;
+        }
+
+        input[type="radio"]:checked {
+            background-color: #2c7be5;
+            border-color: #2c7be5;
+            box-shadow: inset 0 0 0 3px #0f1428;
+        }
+
+        .option label {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            cursor: pointer;
+            color: #dfe7ff;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .btn {
+            border: none;
+            background: #232e4e;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #2c5cf0;
+            box-shadow: 0 5px 12px #1e3a8a40;
+        }
+
+        .btn-primary:hover {
+            background: #1f47c0;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: #2f3b60;
+        }
+
+        .btn-secondary:hover {
+            background: #3e4c78;
+        }
+
+        .results {
+            background: #0a1122e6;
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border: 1px solid #2e4a7a;
+        }
+
+        .score-board {
+            text-align: center;
+            padding: 0.8rem;
+            background: #030717;
+            border-radius: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #facc15;
+        }
+
+        .feedback-item {
+            font-size: 0.85rem;
+            padding: 0.6rem;
+            border-bottom: 1px solid #253c66;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            align-items: baseline;
+        }
+
+        .correct-badge {
+            color: #6ee7b7;
+            font-weight: bold;
+        }
+
+        .incorrect-badge {
+            color: #f87171;
+            font-weight: bold;
+        }
+
+        .answer-detail {
+            font-family: monospace;
+            background: #00000033;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        hr {
+            border-color: #2a4870;
+            margin: 0.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 2rem;
+            color: #6e7b9e;
+        }
+
+        @media (max-width: 700px) {
+            .quiz-wrapper {
+                padding: 1rem;
+            }
+            .question-card {
+                padding: 1rem;
+            }
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-wrapper">
+    <div class="header">
+        <h1>🧠 Sistemas Operativos 2026</h1>
+        <div class="sub">Cuestionario interactivo de opción múltiple · Edición Kernel 6.19, tendencias híbridas y seguridad</div>
+    </div>
+    <div class="instructions">
+        📘 <strong>Instrucciones:</strong> Selecciona la respuesta correcta para cada una de las 20 preguntas. Cada pregunta tiene 3 opciones, solo una es correcta. Al finalizar, presiona <strong>"✅ Calificar examen"</strong> para obtener tu puntaje y revisar la retroalimentación. Puedes reiniciar tus respuestas con el botón correspondiente. ¡Repasa y aprende!
+    </div>
+
+    <form id="quizForm">
+        <!-- Sección 1: Definición y rol -->
+        <div class="section">
+            <div class="section-title">🧠 1. Definición y rol del SO</div>
+
+            <!-- Pregunta 1 -->
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 1</span> ¿Cuál es la definición fundamental de un sistema operativo (SO) según las fuentes?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">A) Un conjunto de aplicaciones de oficina y herramientas de productividad.</label></div>
+                    <div class="option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">B) Una capa de software que actúa como interfaz intermedia entre el hardware y los usuarios para administrar la estructura física de forma eficiente.</label></div>
+                    <div class="option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">C) Un firmware de bajo nivel que solo maneja el arranque del equipo.</label></div>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 2</span> ¿Por qué se considera al SO como una "capa de abstracción" necesaria para los desarrolladores?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">A) Porque permite ejecutar múltiples navegadores web al mismo tiempo.</label></div>
+                    <div class="option"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">B) Porque oculta la complejidad física y proporciona interfaces estandarizadas, permitiendo la portabilidad de aplicaciones sin escribir código para cada hardware.</label></div>
+                    <div class="option"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">C) Porque elimina la necesidad de controladores de dispositivos.</label></div>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 3</span> En el contexto de 2026, ¿cómo se describe el rol del SO respecto a la orquestación multinúcleo?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">A) Solo administra el núcleo principal, delegando los secundarios al hardware.</label></div>
+                    <div class="option"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">B) Como la autoridad central responsable de gestionar arquitecturas heterogéneas que combinan CPU, GPU y Neural Engines.</label></div>
+                    <div class="option"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">C) Es irrelevante porque los procesadores actuales se autogestionan sin intervención del SO.</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 2: Funciones principales -->
+        <div class="section">
+            <div class="section-title">⚙️ 2. Funciones principales (Archivos, Memoria, CPU, Periféricos, Seguridad)</div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 4</span> ¿Qué mejora específica introdujo el Kernel 6.19 de Linux para el sistema de archivos ext4?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="a" id="q4a"><label for="q4a">A) Soporte para "bloques gigantes" de 64K en sistemas con páginas de 4K.</label></div>
+                    <div class="option"><input type="radio" name="q4" value="b" id="q4b"><label for="q4b">B) Eliminación del journaling para mejorar velocidad.</label></div>
+                    <div class="option"><input type="radio" name="q4" value="c" id="q4c"><label for="q4c">C) Integración con el sistema de archivos ZFS de forma nativa.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 5</span> ¿Qué tecnología permite crear sistemas de archivos personalizados en el espacio de usuario, como montajes encriptados?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="a" id="q5a"><label for="q5a">A) FUSE (Filesystem in Userspace).</label></div>
+                    <div class="option"><input type="radio" name="q5" value="b" id="q5b"><label for="q5b">B) LVM (Logical Volume Manager).</label></div>
+                    <div class="option"><input type="radio" name="q5" value="c" id="q5c"><label for="q5c">C) eBPF (Extended Berkeley Packet Filter).</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 6</span> ¿Qué técnica moderna utiliza el SO para reducir los fallos de TLB (Translation Lookaside Buffer) en modelos de aprendizaje automático?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="a" id="q6a"><label for="q6a">A) Uso de páginas pequeñas de 1KB.</label></div>
+                    <div class="option"><input type="radio" name="q6" value="b" id="q6b"><label for="q6b">B) Uso de "huge pages".</label></div>
+                    <div class="option"><input type="radio" name="q6" value="c" id="q6c"><label for="q6c">C) Desactivación del TLB por seguridad.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 7</span> ¿Cómo logra el sistema operativo ejecutar programas que son más grandes que la memoria física disponible?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="a" id="q7a"><label for="q7a">A) Mediante mecanismos de memoria virtual, paginación y swapping, trasladando datos entre la RAM y el almacenamiento secundario.</label></div>
+                    <div class="option"><input type="radio" name="q7" value="b" id="q7b"><label for="q7b">B) Usando exclusivamente la caché del procesador.</label></div>
+                    <div class="option"><input type="radio" name="q7" value="c" id="q7c"><label for="q7c">C) Dividiendo el programa en partes que se ejecutan en diferentes servidores.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 8</span> ¿Cuál es la función de los controladores (drivers) y cómo interactúan con el kernel?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="a" id="q8a"><label for="q8a">A) Son programas de usuario que gestionan la interfaz gráfica.</label></div>
+                    <div class="option"><input type="radio" name="q8" value="b" id="q8b"><label for="q8b">B) Actúan como traductores que permiten al kernel dar instrucciones claras a periféricos que hablan distintos "idiomas" técnicos.</label></div>
+                    <div class="option"><input type="radio" name="q8" value="c" id="q8c"><label for="q8c">C) Reemplazan al kernel en tareas de gestión de procesos.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 9</span> ¿Qué es el Acceso Directo a Memoria (DMA) y cuál es su beneficio para la CPU?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="a" id="q9a"><label for="q9a">A) Es un mecanismo que permite a los dispositivos transferir datos directamente sin sobrecargar o intervenir constantemente la CPU.</label></div>
+                    <div class="option"><input type="radio" name="q9" value="b" id="q9b"><label for="q9b">B) Un tipo de memoria RAM más rápida que evita el uso del procesador.</label></div>
+                    <div class="option"><input type="radio" name="q9" value="c" id="q9c"><label for="q9c">C) Una instrucción del procesador para duplicar la velocidad de reloj.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 10</span> Menciona dos tecnologías de seguridad reforzada por hardware integradas en los kernels actuales.</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="a" id="q10a"><label for="q10a">A) Intel LASS (separación de espacios de dirección) y cifrado de enlaces PCIe.</label></div>
+                    <div class="option"><input type="radio" name="q10" value="b" id="q10b"><label for="q10b">B) Antivirus integrado y firewall de red.</label></div>
+                    <div class="option"><input type="radio" name="q10" value="c" id="q10c"><label for="q10c">C) HyperThreading y Turbo Boost.</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 3: Componentes y modos de operación -->
+        <div class="section">
+            <div class="section-title">🖥️ 3. Componentes y Modos de Operación</div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 11</span> ¿Cuáles son los tres tipos fundamentales de interfaz de usuario identificados en 2026?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q11" value="a" id="q11a"><label for="q11a">A) CLI (Línea de comandos), GUI (Gráfica) y NUI (Natural).</label></div>
+                    <div class="option"><input type="radio" name="q11" value="b" id="q11b"><label for="q11b">B) CLI, API y Web.</label></div>
+                    <div class="option"><input type="radio" name="q11" value="c" id="q11c"><label for="q11c">C) TUI, VUI y HUD.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 12</span> ¿Qué es un "AI shell" y qué ventaja ofrece sobre las interfaces tradicionales?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q12" value="a" id="q12a"><label for="q12a">A) Es una terminal que usa inteligencia artificial para sugerir comandos; su ventaja es que acelera la escritura de scripts.</label></div>
+                    <div class="option"><input type="radio" name="q12" value="b" id="q12b"><label for="q12b">B) Es una interfaz que integra lenguaje natural y modelos avanzados para procesar comandos coloquiales y respuestas contextualizadas.</label></div>
+                    <div class="option"><input type="radio" name="q12" value="c" id="q12c"><label for="q12c">C) Es un reemplazo completo del kernel que permite ejecutar aplicaciones sin SO.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 13</span> ¿Cuál es la diferencia crítica entre el "modo kernel" y el "modo usuario"?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q13" value="a" id="q13a"><label for="q13a">A) El modo kernel solo se usa durante el arranque; el modo usuario es el estado normal.</label></div>
+                    <div class="option"><input type="radio" name="q13" value="b" id="q13b"><label for="q13b">B) El modo kernel tiene poder absoluto y acceso al hardware; el modo usuario tiene acceso restringido para evitar que fallos de apps afecten al sistema.</label></div>
+                    <div class="option"><input type="radio" name="q13" value="c" id="q13c"><label for="q13c">C) En modo kernel se ejecutan los juegos; en modo usuario las aplicaciones de oficina.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 14</span> ¿Por qué los diseños de microkernel están ganando popularidad en sistemas autónomos en 2026?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q14" value="a" id="q14a"><label for="q14a">A) Porque mejoran la seguridad al trasladar servicios fuera del núcleo, minimizando la superficie de ataque y permitiendo actualizaciones sin reiniciar.</label></div>
+                    <div class="option"><input type="radio" name="q14" value="b" id="q14b"><label for="q14b">B) Porque son más fáciles de implementar en un solo archivo monolítico.</label></div>
+                    <div class="option"><input type="radio" name="q14" value="c" id="q14c"><label for="q14c">C) Porque eliminan la necesidad de controladores de hardware.</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 4: Clasificaciones y tipos especializados -->
+        <div class="section">
+            <div class="section-title">📊 4. Clasificaciones y Tipos Especializados</div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 15</span> ¿Cómo funciona el planificador "Completely Fair Scheduler" (CFS) en Linux?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q15" value="a" id="q15a"><label for="q15a">A) Asigna prioridades fijas según el usuario.</label></div>
+                    <div class="option"><input type="radio" name="q15" value="b" id="q15b"><label for="q15b">B) Decide qué tarea se ejecuta en la CPU garantizando equidad de recursos entre todos los procesos.</label></div>
+                    <div class="option"><input type="radio" name="q15" value="c" id="q15c"><label for="q15c">C) Ejecuta siempre primero el proceso con mayor uso de memoria.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 16</span> ¿Qué caracteriza a los sistemas operativos distribuidos frente a los centralizados?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q16" value="a" id="q16a"><label for="q16a">A) Los centralizados usan un solo dispositivo; los distribuidos son una red de computadoras que cooperan como un sistema unificado.</label></div>
+                    <div class="option"><input type="radio" name="q16" value="b" id="q16b"><label for="q16b">B) Los distribuidos no tienen núcleo, solo aplicaciones.</label></div>
+                    <div class="option"><input type="radio" name="q16" value="c" id="q16c"><label for="q16c">C) Los centralizados requieren conexión a internet permanente.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 17</span> ¿Hacia qué tipo de arquitectura de recursos apunta la "tendencia híbrida" dominante en 2026?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q17" value="a" id="q17a"><label for="q17a">A) Una que integra entornos locales, basados en la nube y edge computing para baja latencia.</label></div>
+                    <div class="option"><input type="radio" name="q17" value="b" id="q17b"><label for="q17b">B) Exclusivamente en la nube pública.</label></div>
+                    <div class="option"><input type="radio" name="q17" value="c" id="q17c"><label for="q17c">C) Solo centros de datos tradicionales.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 18</span> ¿Cuál es la diferencia entre un sistema de tiempo real (RTOS) "duro" y uno "suave"?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q18" value="a" id="q18a"><label for="q18a">A) El "duro" requiere precisión absoluta (ej. plantas nucleares); el "suave" tolera retrasos mínimos (ej. robots industriales).</label></div>
+                    <div class="option"><input type="radio" name="q18" value="b" id="q18b"><label for="q18b">B) El "duro" es para sistemas de escritorio; el "suave" para servidores.</label></div>
+                    <div class="option"><input type="radio" name="q18" value="c" id="q18c"><label for="q18c">C) El "duro" usa hardware específico; el "suave" solo software.</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 5: Tendencias actuales -->
+        <div class="section">
+            <div class="section-title">🚀 5. Tendencias Actuales</div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 19</span> ¿Qué sistema operativo se ha consolidado como el estándar de código abierto para sistemas embebidos e IoT?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q19" value="a" id="q19a"><label for="q19a">A) Zephyr.</label></div>
+                    <div class="option"><input type="radio" name="q19" value="b" id="q19b"><label for="q19b">B) FreeRTOS.</label></div>
+                    <div class="option"><input type="radio" name="q19" value="c" id="q19c"><label for="q19c">C) Windows IoT Core.</label></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text"><span class="q-num">Pregunta 20</span> ¿Qué nuevos soportes de hardware específicos se mencionan para el Kernel 6.19 de Linux?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q20" value="a" id="q20a"><label for="q20a">A) Soporte para procesadores Intel Nova Lake, gráficos Intel Xe3-LPG y arquitecturas LoongArch32 y Apple M-series.</label></div>
+                    <div class="option"><input type="radio" name="q20" value="b" id="q20b"><label for="q20b">B) Solo para arquitecturas x86 de 32 bits.</label></div>
+                    <div class="option"><input type="radio" name="q20" value="c" id="q20c"><label for="q20c">C) Eliminación del soporte para procesadores ARM.</label></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn btn-primary" id="submitQuiz">✅ Calificar examen</button>
+            <button type="button" class="btn btn-secondary" id="resetQuiz">⟳ Reiniciar respuestas</button>
+        </div>
+    </form>
+
+    <div id="resultArea" class="results" style="display: none;"></div>
+    <footer>📌 Cuestionario interactivo con 20 preguntas de opción múltiple sobre Sistemas Operativos 2026. Selecciona una opción por pregunta y obtén tu calificación automática.</footer>
+</div>
+
+<script>
+    // Mapa de respuestas correctas (opción correcta: 'a', 'b' o 'c')
+    const correctAnswers = {
+        q1: 'b',
+        q2: 'b',
+        q3: 'b',
+        q4: 'a',
+        q5: 'a',
+        q6: 'b',
+        q7: 'a',
+        q8: 'b',
+        q9: 'a',
+        q10: 'a',
+        q11: 'a',
+        q12: 'b',
+        q13: 'b',
+        q14: 'a',
+        q15: 'b',
+        q16: 'a',
+        q17: 'a',
+        q18: 'a',
+        q19: 'a',
+        q20: 'a'
+    };
+
+    // Texto descriptivo de cada respuesta correcta para feedback
+    const answerDescriptions = {
+        q1: "B) Capa de software que actúa como interfaz intermedia entre hardware y usuarios.",
+        q2: "B) Oculta la complejidad física y proporciona interfaces estandarizadas para portabilidad.",
+        q3: "B) Autoridad central que gestiona arquitecturas heterogéneas (CPU, GPU, Neural Engines).",
+        q4: "A) Bloques gigantes de 64K en sistemas con páginas de 4K.",
+        q5: "A) FUSE (Filesystem in Userspace) permite sistemas de archivos personalizados.",
+        q6: "B) Uso de 'huge pages' reduce fallos de TLB en ML.",
+        q7: "A) Memoria virtual, paginación y swapping.",
+        q8: "B) Actúan como traductores entre kernel y periféricos.",
+        q9: "A) DMA permite transferencias directas sin sobrecargar la CPU.",
+        q10: "A) Intel LASS y cifrado de enlaces PCIe.",
+        q11: "A) CLI, GUI y NUI (Natural).",
+        q12: "B) Interfaz con lenguaje natural y modelos avanzados.",
+        q13: "B) Modo kernel: acceso total; modo usuario: restringido por seguridad.",
+        q14: "A) Mejoran seguridad al trasladar servicios fuera del núcleo, reduciendo superficie de ataque.",
+        q15: "B) CFS garantiza equidad de recursos entre procesos.",
+        q16: "A) Centralizados: un solo dispositivo; distribuidos: red cooperativa unificada.",
+        q17: "A) Integración de entornos locales, nube y edge computing.",
+        q18: "A) Duro: precisión absoluta; suave: tolera retrasos mínimos.",
+        q19: "A) Zephyr es el estándar open source para embebidos e IoT.",
+        q20: "A) Soporte para Intel Nova Lake, Intel Xe3-LPG, LoongArch32 y Apple M-series."
+    };
+
+    function getSelectedAnswers() {
+        let answers = {};
+        for (let i = 1; i <= 20; i++) {
+            const name = `q${i}`;
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            answers[name] = selected ? selected.value : null;
+        }
+        return answers;
+    }
+
+    function evaluateQuiz() {
+        const userAnswers = getSelectedAnswers();
+        let correctCount = 0;
+        let feedbackHtml = '';
+
+        for (let i = 1; i <= 20; i++) {
+            const qName = `q${i}`;
+            const userVal = userAnswers[qName];
+            const correctVal = correctAnswers[qName];
+            const isCorrect = (userVal === correctVal);
+            if (isCorrect) correctCount++;
+
+            const statusIcon = isCorrect ? '✅' : '❌';
+            const statusClass = isCorrect ? 'correct-badge' : 'incorrect-badge';
+            const userDisplay = userVal ? userVal.toUpperCase() : 'Sin responder';
+            const correctDisplay = correctVal.toUpperCase();
+
+            feedbackHtml += `
+                <div class="feedback-item">
+                    <span style="min-width: 32px;">${statusIcon}</span>
+                    <span><strong>Pregunta ${i}</strong> — </span>
+                    <span class="${statusClass}">${isCorrect ? 'Correcta' : 'Incorrecta'}</span>
+                    <span style="margin-left: auto; font-size:0.75rem;">
+                        Tu respuesta: ${userDisplay} | Correcta: ${correctDisplay}
+                    </span>
+                    <div style="width:100%; margin-top: 5px; color:#b9c7e0; font-size:0.8rem;">
+                        📖 ${answerDescriptions[qName]}
+                    </div>
+                </div>
+            `;
+        }
+
+        const percent = (correctCount / 20) * 100;
+        let message = '';
+        if (percent >= 90) message = '🏆 ¡Excelente! Dominas los conceptos actuales de sistemas operativos.';
+        else if (percent >= 70) message = '👍 Muy bien, repasa los temas de microkernel y tendencias híbridas.';
+        else if (percent >= 50) message = '📘 Buen intento, revisa las tecnologías de seguridad y el planificador CFS.';
+        else message = '🔧 Te sugerimos estudiar nuevamente las definiciones básicas y las novedades del Kernel 6.19.';
+
+        const resultHtml = `
+            <div class="score-board">
+                <div class="score-text">${correctCount} / 20 correctas</div>
+                <div style="font-size:1.2rem; margin-top:5px;">${Math.round(percent)}% — ${message}</div>
+            </div>
+            <div style="max-height: 450px; overflow-y: auto; padding-right: 5px;">
+                ${feedbackHtml}
+            </div>
+            <hr>
+            <div style="text-align: center; font-size: 0.85rem; margin-top: 8px;">
+                🔁 Puedes reiniciar para volver a intentarlo. ¡Sigue aprendiendo!
+            </div>
+        `;
+
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.innerHTML = resultHtml;
+        resultDiv.style.display = 'block';
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetQuiz() {
+        for (let i = 1; i <= 20; i++) {
+            const radios = document.querySelectorAll(`input[name="q${i}"]`);
+            radios.forEach(radio => radio.checked = false);
+        }
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function confirmUnanswered() {
+        let unanswered = [];
+        for (let i = 1; i <= 20; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (!selected) unanswered.push(i);
+        }
+        if (unanswered.length > 0) {
+            return confirm(`⚠️ Aún no has respondido las preguntas: ${unanswered.join(', ')}.\n¿Deseas calificar de todas formas? Las no contestadas se considerarán incorrectas.`);
+        }
+        return true;
+    }
+
+    document.getElementById('submitQuiz').addEventListener('click', () => {
+        if (confirmUnanswered()) {
+            evaluateQuiz();
+        }
+    });
+
+    document.getElementById('resetQuiz').addEventListener('click', () => {
+        resetQuiz();
+    });
+
+    // Mejor UX: al hacer clic en toda la opción se selecciona el radio
+    const optionDivs = document.querySelectorAll('.option');
+    optionDivs.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            const radio = opt.querySelector('input[type="radio"]');
+            if (radio && !radio.checked) {
+                radio.checked = true;
+            }
+        });
+    });
+</script>
+</body>
+</html>
